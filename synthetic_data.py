@@ -91,7 +91,3 @@ class SyntheticData:
         ax.set_title("Polygons with internal points and noise points")
         plt.axis([0, 120, 0, 120])
         plt.show()
-
-sd = SyntheticData(5,5,10,6)
-pts = sd.point_assignments
-print(pts.head(30))

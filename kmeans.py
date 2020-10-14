@@ -23,6 +23,8 @@ class Kmeans:
         # temporarily drop class column if it is a classification dataset
         if isClassification:
             self.dataSet = dataSet.drop(dataSet.columns[-1], axis = 1)
+        else:
+            self.dataSet = dataSet
         self.dataSet["cluster"] = -1
         self.centroids = pd.DataFrame(columns=self.dataSet.columns)
         self.initCentroids(self.k, self.dataSet)
