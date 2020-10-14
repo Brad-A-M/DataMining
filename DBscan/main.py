@@ -18,7 +18,13 @@ df = pd.DataFrame(data=d)
 print(df)
 print(df.index)
 
-print(squareform(pdist(df.loc[[0,1,2,3,4,5]])))
+dex = []
+for i in range(0,len(df.index)):
+    dex.append(i)
 
-m = pd.DataFrame(squareform(pdist(df.loc[[0,1,2,3,4,5]])),columns=df.index,index =df.index)
+print(dex)
+
+print(squareform(pdist(df.loc[dex])))
+
+m = pd.DataFrame(squareform(pdist(df.loc[dex])),columns=df.index,index =df.index)
 print(m)
