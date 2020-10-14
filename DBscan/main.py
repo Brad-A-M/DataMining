@@ -15,10 +15,32 @@ d = {'c1': [1, 0, 1, 10, 11, 10],'c2': [1, 0, 0, 10,  10, 11]}
 
 
 df = pd.DataFrame(data=d)
-print(df)
-print(df.index)
+#print(df)
+#print(df.index)
 
-print(squareform(pdist(df.loc[[0,1,2,3,4,5]])))
+dex = []
+for i in range(0,len(df.index)):
+    dex.append(i)
 
-m = pd.DataFrame(squareform(pdist(df.loc[[0,1,2,3,4,5]])),columns=df.index,index =df.index)
-print(m)
+#print(dex)
+
+#print(squareform(pdist(df.loc[dex])))
+
+m = pd.DataFrame(squareform(pdist(df.loc[dex])),columns=df.index,index =df.index)
+#print(m)
+
+lessThanEpsilonDict = {} 
+
+for i, mRow in m.iterrows():
+    if m.loc[i][0] < epsilon:
+        if str(mRow) in lessThanEpsilonDict.keys():
+            oldValueArray = lessThanEpsilonDict[str(mRow)]
+            oldValueArray.append[i]
+            lessThanEpsilonDict[str(mRow)] = oldValueArray
+        else:
+            lessThanEpsilonDict[str(mRow)] = [i]
+
+#print(lessThanEpsilonDict)
+for key in lessThanEpsilonDict:
+    print('key: ' + key)
+    print('value: ' + str(lessThanEpsilonDict[key]))
