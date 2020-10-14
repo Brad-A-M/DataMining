@@ -28,3 +28,14 @@ print(squareform(pdist(df.loc[dex])))
 
 m = pd.DataFrame(squareform(pdist(df.loc[dex])),columns=df.index,index =df.index)
 print(m)
+
+lessThanEpsilonDict = {} 
+
+for i, mRow in m.iterrows():
+    if m.loc[i][0] < epsilon:
+        if str(mRow) in lessThanEpsilonDict.keys():
+            oldValueArray = lessThanEpsilonDict[str(mRow)]
+            oldValueArray.append[i]
+            lessThanEpsilonDict[str(mRow)] = oldValueArray
+        else:
+            lessThanEpsilonDict[str(mRow)] = [i]
