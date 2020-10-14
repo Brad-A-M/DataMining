@@ -22,7 +22,7 @@ def createLessThanEpsilonDict(df, m):
     lessThanEpsilonDict = {}
     for i in range(len(df)):
         for j in range(len(df)):
-            if m.loc[i,j]< epsilon:
+            if m.loc[i,j]< epsilon and i!=j:
                 if i in lessThanEpsilonDict.keys():
                     oldValueArray = []
                     oldValueArray = lessThanEpsilonDict[i]
@@ -39,4 +39,36 @@ df, dex = init()
 m = createPairwiseDistanceMatrix(df)
 lessThanEpsilonDict = createLessThanEpsilonDict(df, m)
 
-print(lessThanEpsilonDict)
+#print(lessThanEpsilonDict)
+
+clusters = []
+# cluster -2 means unassigned, -1 means noise
+c=0;
+for i in range(0, len(df.index)):
+    clusters.append(-2)
+
+print(clusters)
+
+
+for p in range(0, len(df.index)):
+    print(p)
+    if clusters[p] != -2:
+        continue
+    if clusters[p] == -2:
+        if len(lessThanEpsilonDict[p]) <= minPts:
+            clusters[p] = -1
+        else:
+            c=c+1
+            cluster[p]=c
+            for nearNeighbor in lessThanEpsilonDict[p]:
+                cluster[nearNeighbor] = c
+
+
+                if clusters[nearNeighbor]==-1:
+                    clusters[nearNeighbor] = c
+                if clusters[nearNeighbor]!=-2:
+                    continue
+                else:
+                    continue
+
+
