@@ -30,18 +30,24 @@ m = pd.DataFrame(squareform(pdist(df.loc[dex])),columns=df.index,index =df.index
 #print(m)
 
 lessThanEpsilonDict = {} 
-indexOfRowCount = -1
-for i, mRow in m.iterrows():
-    indexOfRowCount += 1
-    if m.loc[i][0] < epsilon:
-        if indexOfRowCount in lessThanEpsilonDict.keys():
-            oldValueArray = lessThanEpsilonDict[indexOfRowCount]
-            oldValueArray.append[i]
-            lessThanEpsilonDict[indexOfRowCount] = oldValueArray
-        else:
-            lessThanEpsilonDict[indexOfRowCount] = [i]
+
 
 #print(lessThanEpsilonDict)
+
+for i in range(len(df)):
+    for j in range(len(df)):
+        if m.loc[i,j]< epsilon:
+            if i in lessThanEpsilonDict.keys():
+                oldValueArray = []
+                oldValueArray = lessThanEpsilonDict[i]
+                oldValueArray.append(j)
+                lessThanEpsilonDict[i] = oldValueArray
+            else:
+                arrayToAppend = []
+                arrayToAppend.append(j)
+                lessThanEpsilonDict[i] = arrayToAppend
+
+
 for key in lessThanEpsilonDict:
     print('key: ' + str(key))
     print('value: ' + str(lessThanEpsilonDict[key]))
