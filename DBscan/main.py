@@ -51,24 +51,35 @@ print(clusters)
 
 
 for p in range(0, len(df.index)):
-    print(p)
+    print('p ' + str(p))
+    print('clusters ' + str(clusters[p]))
     if clusters[p] != -2:
         continue
     if clusters[p] == -2:
-        if len(lessThanEpsilonDict[p]) <= minPts:
+        if len(lessThanEpsilonDict[p]) < minPts:
             clusters[p] = -1
         else:
             c=c+1
-            cluster[p]=c
+            clusters[p]=c
+
+            stack =[]
             for nearNeighbor in lessThanEpsilonDict[p]:
-                cluster[nearNeighbor] = c
+                stack.append(nearNeighbor)
+
+            while(len(stack)!=0):
+                q=stack.pop()
 
 
-                if clusters[nearNeighbor]==-1:
-                    clusters[nearNeighbor] = c
-                if clusters[nearNeighbor]!=-2:
+                if clusters[q]==-1:
+                    clusters[q] = c
+                if clusters[q]!=-2:
                     continue
                 else:
-                    continue
+                    clusters[q] = c
+                    if len(lessThanEpsilonDict[q]) >= minPts:
+                        for nearNeighbor in lessThanEpsilonDict[q]:
+                            stack.append(nearNeighbor)
 
 
+
+print(clusters)
