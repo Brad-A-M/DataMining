@@ -6,7 +6,7 @@ from scipy.spatial.distance import squareform
 # global variables
 epsilon = 2
 minPts = 2
-d = {'c1': [1, 0, 1, 10, 11, 10],'c2': [1, 0, 0, 10,  10, 11]}
+d = {'c1': [1, 0, 1, 10, 11, 10, 90],'c2': [1, 0, 0, 10,  10, 11, 50]}
 
 # initalize dataframe
 def init():
@@ -24,7 +24,7 @@ def createLessThanEpsilonDict(df, m):
     lessThanEpsilonDict = {}
     for i in range(len(df)):
         for j in range(len(df)):
-            if m.loc[i,j]< epsilon and i!=j:
+            if m.loc[i,j]< epsilon:
                 if i in lessThanEpsilonDict.keys():
                     oldValueArray = []
                     oldValueArray = lessThanEpsilonDict[i]
@@ -55,7 +55,8 @@ def clusterAssignment(cf, lessThanEpsilonDict):
 
                 stack = []
                 for nearNeighbor in lessThanEpsilonDict[point]:
-                    stack.append(nearNeighbor)
+                    if(point!=nearNeighbor):
+                        stack.append(nearNeighbor)
 
                 while (len(stack) != 0):
                     q = stack.pop()
@@ -68,7 +69,8 @@ def clusterAssignment(cf, lessThanEpsilonDict):
                         clusters[q] = c
                         if len(lessThanEpsilonDict[q]) >= minPts:
                             for nearNeighbor in lessThanEpsilonDict[q]:
-                                stack.append(nearNeighbor)
+                                if(nearNeighbor != q):
+                                    stack.append(nearNeighbor)
 
     print(clusters)
 
