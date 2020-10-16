@@ -26,20 +26,22 @@ def calculate_silhouette(df):
                     cluster_dist_dict[df['cluster'].iloc[i]] = [distances[i]]
                 else:
                     cluster_dist_dict[df['cluster'].iloc[i]].append(distances[i])
+        print('cluster dict \n', cluster_dist_dict)
         for key in cluster_dist_dict.keys():
             if sum(cluster_dist_dict[key]) < inter_total:
                 inter_total = sum(cluster_dist_dict[key])
                 inter_points = len(cluster_dist_dict[key])
+        print("point", point, 'dist', inter_total, 'num pts', inter_points)
 
 
-        intra_dist = intra_total/intra_points
-        inter_dist = inter_total/num_points
+        intra_dist = intra_total/(intra_points-1)
+        inter_dist = inter_total/inter_points
         df['intra_distance'].iloc[index] = intra_dist
         df['inter_distance'].iloc[index] = inter_dist
         df['silhouette_coeff'].iloc[index] = (inter_dist - intra_dist)/max(intra_total, inter_dist)
         index+=1
 
-    return df['silhouette_coeff'].average()
+    return df['silhouette_coeff'].mean()
     
 
 
