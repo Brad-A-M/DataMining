@@ -7,8 +7,10 @@ def calculate_silhouette(df):
     df['silhouette_coeff'] = np.zeros(len(df))
     index = 0
     for point in point_df.to_numpy():
+        cluster_dist_dict = {}
         intra_total = 0
-        inter_total = 0
+        inter_total = float('INF')
+        intra_points = 0
         reference_cluster = df['cluster'].iloc[index]
 
         distance_df = (point_df - point)**2
@@ -17,11 +19,21 @@ def calculate_silhouette(df):
         for i in range(len(distances)):
             if df['cluster'].iloc[i] == reference_cluster:
                 intra_total += distances[i]
-            else:
-                inter_total += distances[i]
+                intra_points += 1
 
-        intra_dist = intra_total/(len(df)-1)
-        inter_dist = inter_total/(len(df)-1)
+            else:
+                if df['cluster'].iloc[i] not in cluster_dist_dict.keys():
+                    cluster_dist_dict[df['cluster'].iloc[i]] = [distances[i]]
+                else:
+                    cluster_dist_dict[df['cluster'].iloc[i]].append(distances[i])
+        for key in cluster_dist_dict.keys():
+            if sum(cluster_dist_dict[key]) < inter_total:
+                inter_total = sum(cluster_dist_dict[key])
+                inter_points = len(cluster_dist_dict[key])
+
+
+        intra_dist = intra_total/intra_points
+        inter_dist = inter_total/num_points
         df['intra_distance'].iloc[index] = intra_dist
         df['inter_distance'].iloc[index] = inter_dist
         df['silhouette_coeff'].iloc[index] = (inter_dist - intra_dist)/max(intra_total, inter_dist)
