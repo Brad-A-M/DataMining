@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 ### SILHOUETTE
 def calculate_silhouette(df):
     point_df = df.drop(columns = ['cluster'])
@@ -26,12 +27,12 @@ def calculate_silhouette(df):
                     cluster_dist_dict[df['cluster'].iloc[i]] = [distances[i]]
                 else:
                     cluster_dist_dict[df['cluster'].iloc[i]].append(distances[i])
-        print('cluster dict \n', cluster_dist_dict)
+        #print('cluster dict \n', cluster_dist_dict)
         for key in cluster_dist_dict.keys():
             if sum(cluster_dist_dict[key]) < inter_total:
                 inter_total = sum(cluster_dist_dict[key])
                 inter_points = len(cluster_dist_dict[key])
-        print("point", point, 'dist', inter_total, 'num pts', inter_points)
+        #print("point", point, 'dist', inter_total, 'num pts', inter_points)
 
 
         intra_dist = intra_total/(intra_points-1)

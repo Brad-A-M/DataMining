@@ -69,8 +69,8 @@ class Kmeans:
             if len(cluster) > 0:
                 cluster.reset_index(inplace=True, drop=True) #reset index since rows grabbed might not have been sequential
                 new_centroid = cluster.sum(axis=0) / len(cluster) # cluster name will hold through this despite division since all points have the same cluster name
-                print("new centroid")
-                print(new_centroid)
+                #print("new centroid")
+                #print(new_centroid)
                 self.centroids.loc[cluster_name] = new_centroid
 
     def converge(self, max_iterations):
@@ -79,14 +79,14 @@ class Kmeans:
         count = 0
         while True:
             self.updateCentroids()
-            print("updating clusters") #centroids need to be updated for new cluster assignments
+            #print("updating clusters") #centroids need to be updated for new cluster assignments
             self.generateClusters(self.k)
             if(previous_cluster_assignment.equals(self.dataSet["cluster"]) or count == max_iterations): #check to see if assignments have changed
                 break
             else:
                 previous_cluster_assignment = self.dataSet["cluster"] #previous cluster assignments become current if cluster assignments were updated
                 count += 1
-                print(count)
+                #print(count)
         return self.centroids
 
     def euclideanDistance(self, row, centroid):
