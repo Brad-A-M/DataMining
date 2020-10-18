@@ -1,6 +1,6 @@
 # DataMining
 
-For the synthetic dataset, kmeans.py returns a data frame in the following form when `generateClusters(max_iterations)` is called..
+For the synthetic datasets, db scan and kmeans return a dataframe in the form.
 
 | polygon   | x              | y              |  cluster  |
 | --------- | -------------- | -------------- | --------- |
@@ -8,7 +8,7 @@ For the synthetic dataset, kmeans.py returns a data frame in the following form 
 | polygon # | point2 x-coord | point2 y-coord | cluster # |
 | ...       | ...            | ...            | ...       |
 
-For classification datasets, kmeans.py returns a dataframe in the following form.
+For classification datasets, db scan and kmeans return a dataframe in the following form.
 
 | Attribute 1 |  Attribute 2 | ... | class   | cluster   |
 | ----------- | ------------ | --- | ------- | --------- |
