@@ -1,0 +1,7 @@
+# Required packages
+numpy
+pandas
+scipy
+shapely
+matplotlib
+descartes
