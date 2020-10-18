@@ -16,15 +16,23 @@ import math
 
 class Kmeans:
 
-    def __init__(self, k, dataSet, isClassification):
+    def __init__(self, k, dataSet, isClassification, isSynthetic):
         self.k = k
         self.original_dataset = dataSet
         self.isClassification = isClassification
+        self.isSynthetic = isSynthetic
         # temporarily drop class column if it is a classification dataset
+        # use index rather than column name because not all datasets refer to the
+        # classes as 'class', but all have the classes in the last column
         if isClassification:
             self.dataSet = dataSet.drop(dataSet.columns[-1], axis = 1)
+        # temporarily drop polygon column if it is a synthetic dataset
+        elif isSynthetic:
+            self.polygons = dataSet["polygon"]
+            self.dataSet = dataSet.drop(columns=["polygon"])
         else:
             self.dataSet = dataSet
+            
         self.dataSet["cluster"] = -1
         self.centroids = pd.DataFrame(columns=self.dataSet.columns)
         self.initCentroids(self.k, self.dataSet)
@@ -100,5 +108,9 @@ class Kmeans:
             new_col_order[len(new_col_order) - 2] = "class"
             new_col_order[len(new_col_order) - 1] = "cluster"
             clusters = clusters.reindex(columns = new_col_order)
+            clusters.reset_index(inplace=True, drop=True)
+        elif self.isSynthetic:
+            clusters.insert(0, "polygon", self.polygons)
+            clusters.reset_index(inplace=True, drop=True)
             
         return clusters
