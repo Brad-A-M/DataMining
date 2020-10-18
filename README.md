@@ -1,5 +1,5 @@
 # DataMining
-
+## HW2 ![Build Status](https://github.com/Brad-A-M/DataMining/workflows/Python%20application/badge.svg)
 For the synthetic datasets, db scan and kmeans return a dataframe in the form.
 
 | polygon   | x              | y              |  cluster  |
