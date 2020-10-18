@@ -24,6 +24,7 @@ For classification datasets, db scan and kmeans return a dataframe in the follow
 Algorithm assessment
 
 | Algorithm | Assessment Metric     | Dataset                                      | Score  |
+| --------- | --------------------- | -------------------------------------------- | ------ |
 | k-means   | Silhoutte Coefficient | Synthetic, 5 polys, 5 pts each, 10 noise pts | 0.3588 |
 | DB Scan   | Silhoutte Coefficient | Synthetic, 5 polys, 5 pts each, 10 noise pts | 0.3915 |
 | k-means   | Purity                | Segmentation, UCI Machine Learning Repo      | 0.6476 |
