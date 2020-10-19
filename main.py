@@ -21,7 +21,7 @@ class Main:
                 synthesizer = sd.SyntheticData(5,5,10,6)
                 pts = synthesizer.point_assignments # synthetic data pts
                 # TODO: might attempt to plot clusters if time permits.
-                print(pts.head(30))
+                #print(pts.head(30))
 
 
                 
